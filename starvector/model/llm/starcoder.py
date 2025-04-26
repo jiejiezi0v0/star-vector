@@ -21,11 +21,10 @@ class StarCoderModel(nn.Module):
         model_config.eos_token_id = self.tokenizer.eos_token_id
         model_config.pad_token_id = self.tokenizer.pad_token_id
         model_config.bos_token_id = self.tokenizer.bos_token_id
-        try:
-            model_config.flash_attention = config.use_flash_attn
-            model_config._attn_implementation = "flash_attention_2"
-        except ImportError:
-            config.use_flash_attn = False
+        config.use_flash_attn = False
+        model_config.flash_attention = config.use_flash_attn
+        model_config._attn_implementation = False
+        model_config._attn_implementation_autoset = True
         
         # model = GPTBigCodeForCausalLM(config=model_config)
         model = AutoModelForCausalLM.from_pretrained(config.starcoder_model_name, config=model_config, **kwargs)
