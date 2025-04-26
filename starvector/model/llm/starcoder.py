@@ -23,7 +23,7 @@ class StarCoderModel(nn.Module):
         model_config.bos_token_id = self.tokenizer.bos_token_id
         config.use_flash_attn = False
         model_config.flash_attention = config.use_flash_attn
-        model_config._attn_implementation = False
+        model_config._attn_implementation = "spda"
         model_config._attn_implementation_autoset = True
         
         # model = GPTBigCodeForCausalLM(config=model_config)
